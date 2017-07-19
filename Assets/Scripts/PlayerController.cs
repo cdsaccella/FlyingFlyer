@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    public GameObject game;
+    public GameObject enemyGenerator;
+
     private Animator animator;
 
 	// Use this for initialization
@@ -13,11 +16,13 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+
+        bool gamePlaying = game.GetComponent<GameController>().gameState == GameState.Playing;
+
+        if (gamePlaying && Input.GetKeyDown(KeyCode.UpArrow))
         {
             UpdateState("PlayerFlyUp");
-        }else if (Input.GetKeyDown(KeyCode.DownArrow))
+        }else if (gamePlaying && Input.GetKeyDown(KeyCode.DownArrow))
         {
             UpdateState("PlayerFlyDown");
         }
@@ -30,5 +35,16 @@ public class PlayerController : MonoBehaviour {
             animator.Play(gameState);
         }
     }
-    
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            UpdateState("PlayerCrash");
+            game.GetComponent<GameController>().gameState = GameState.Ended;
+            enemyGenerator.SendMessage("CancelGenerator", true);
+        }
+
+    }
+
 }
