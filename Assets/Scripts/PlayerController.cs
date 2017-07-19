@@ -25,10 +25,9 @@ public class PlayerController : MonoBehaviour {
 
     void UpdateState(string gameState = null)
     {
-        if (gameState != null)
+        if (gameState != null) 
         {
             animator.Play(gameState);
-            
         }
     }
     
