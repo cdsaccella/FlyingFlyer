@@ -17,7 +17,9 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        bool gamePlaying = game.GetComponent<GameController>().gameState == GameState.Playing;
+        GameState gameState = game.GetComponent<GameController>().gameState;
+        bool gamePlaying = gameState == GameState.Playing;
+        bool gameFinished = gameState == GameState.Ended;
 
         if (gamePlaying && Input.GetKey(KeyCode.UpArrow))
         {
@@ -26,9 +28,13 @@ public class PlayerController : MonoBehaviour {
         else if (gamePlaying && Input.GetKey(KeyCode.DownArrow))
         {     
             UpdateState("PlayerFlyDown");
-        }else
+        }else if (gamePlaying)
         {
             UpdateState("PlayerIdle");
+        }
+        else if (gameFinished)
+        {
+            UpdateState("PlayerDestroyed");
         }
 	}
 
@@ -55,6 +61,11 @@ public class PlayerController : MonoBehaviour {
                 case "PlayerIdle":
                     animator.SetBool("movingUp", false);
                     animator.SetBool("movingDown", false);
+                    break;
+                case "PlayerDestroyed":
+                    animator.SetBool("movingUp", false);
+                    animator.SetBool("movingDown", false);
+                    animator.SetBool("playerDestroyed", true);
                     break;
                 default:
                     break;
