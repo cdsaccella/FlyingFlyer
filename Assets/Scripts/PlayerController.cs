@@ -63,9 +63,37 @@ public class PlayerController : MonoBehaviour {
                     animator.SetBool("movingDown", false);
                     break;
                 case "PlayerDestroyed":
+                    Vector2 emptyVelocity = new Vector2(0, 0);
+                    gameObject.GetComponent<Rigidbody2D>().velocity = emptyVelocity;
                     animator.SetBool("movingUp", false);
                     animator.SetBool("movingDown", false);
                     animator.SetBool("playerDestroyed", true);
+                    break;
+                case "PlayerImpulseUp":
+                    Vector2 downVelocity = gameObject.GetComponent<Rigidbody2D>().velocity;
+
+                    if (downVelocity.y < 0)
+                    {
+                        var downSpeed = downVelocity.magnitude;
+                        var downDirection = Vector3.Reflect(downVelocity.normalized, new Vector2(0, 1));
+                        gameObject.GetComponent<Rigidbody2D>().velocity = downDirection * Mathf.Max(downSpeed, 1f);
+                    }
+ 
+                    animator.SetBool("movingDown", false);
+                    animator.SetBool("movingUp", true);
+                    break;
+                case "PlayerImpulseDown":
+                    Vector2 upVelocity = gameObject.GetComponent<Rigidbody2D>().velocity;
+
+                    if (upVelocity.y > 0)
+                    {
+                        var upSpeed = upVelocity.magnitude;
+                        var upDirection = Vector3.Reflect(upVelocity.normalized, new Vector2(0, -1));
+                        gameObject.GetComponent<Rigidbody2D>().velocity = upDirection * Mathf.Max(upSpeed, 1f);
+                    }        
+
+                    animator.SetBool("movingUp", false);
+                    animator.SetBool("movingDown", true);
                     break;
                 default:
                     break;
