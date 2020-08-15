@@ -19,20 +19,46 @@ public class PlayerController : MonoBehaviour {
 
         bool gamePlaying = game.GetComponent<GameController>().gameState == GameState.Playing;
 
-        if (gamePlaying && Input.GetKeyDown(KeyCode.UpArrow))
+        if (gamePlaying && Input.GetKey(KeyCode.UpArrow))
         {
             UpdateState("PlayerFlyUp");
-        }else if (gamePlaying && Input.GetKeyDown(KeyCode.DownArrow))
-        {
+        }
+        else if (gamePlaying && Input.GetKey(KeyCode.DownArrow))
+        {     
             UpdateState("PlayerFlyDown");
+        }else
+        {
+            UpdateState("PlayerIdle");
         }
 	}
 
     void UpdateState(string gameState = null)
     {
+        float forceValue = 1000f * Time.deltaTime;
+
         if (gameState != null) 
         {
-            animator.Play(gameState);
+            switch (gameState)
+            {
+                case "PlayerFlyUp":
+                    Vector2 upForce = new Vector2(0, forceValue);
+                    gameObject.GetComponent<Rigidbody2D>().AddForce(upForce);
+                    animator.SetBool("movingDown", false);
+                    animator.SetBool("movingUp", true);
+                    break;
+                case "PlayerFlyDown":
+                    Vector2 downForce = new Vector2(0, -forceValue);
+                    gameObject.GetComponent<Rigidbody2D>().AddForce(downForce);
+                    animator.SetBool("movingUp", false);
+                    animator.SetBool("movingDown", true);
+                    break;
+                case "PlayerIdle":
+                    animator.SetBool("movingUp", false);
+                    animator.SetBool("movingDown", false);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

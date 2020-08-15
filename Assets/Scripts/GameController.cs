@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour {
         if(gameState == GameState.Idle && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))){
             gameState = GameState.Playing;
             gameIdle.SetActive(false);
-            player.SendMessage("UpdateState", "PlayerFly");
+            //  player.SendMessage("UpdateState", "PlayerFly");
             enemyGenerator.SendMessage("StartGenerator");
         }else if(gameState == GameState.Playing)
         {

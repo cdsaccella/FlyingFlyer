@@ -19,7 +19,9 @@ public class EnemyGeneratorController : MonoBehaviour {
 
     void CreateEnemy()
     {
-        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        float y = Random.Range(-4f, 4f);
+        Vector3 position = new Vector3(transform.position.x, y);
+        Instantiate(enemyPrefab, position, Quaternion.identity);
     }
 
     public void StartGenerator()
