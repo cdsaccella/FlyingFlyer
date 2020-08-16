@@ -14,6 +14,8 @@ _In order to show you a simple demo about the progress, I uploaded it to a githu
 
 [Try me!](https://cdsaccella.github.io/flying-flyer/)
 
+![Game Menu](https://github.com/cdsaccella/flying-flyer/blob/master/image.png)
+
 ## Built with 🛠️
 
 * [Unity](https://unity.com/) - v2019.4.8f1
