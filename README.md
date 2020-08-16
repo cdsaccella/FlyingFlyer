@@ -8,6 +8,12 @@ _I'm exploring the world of game development, so I decided to create a mini game
 
 _Just open the folder inside Unity._
 
+## Play it! 
+
+_In order to show you a simple demo about the progress, I uploaded it to a github page where you can play the game:_
+
+[Try me!](https://cdsaccella.github.io/flying-flyer/)
+
 ## Built with 🛠️
 
 * [Unity](https://unity.com/) - v2019.4.8f1
