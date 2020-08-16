@@ -12,7 +12,7 @@ public class Boundaries : MonoBehaviour
     void Start()
     {
         screenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
-        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.size.y;
+        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class Boundaries : MonoBehaviour
     {
         Vector3 viewPos = transform.position;
 
-        if(viewPos.y < screenBounds.y * -1)
+        if(viewPos.y < screenBounds.y * -1 + objectHeight)
         {
             gameObject.SendMessage("UpdateState", "PlayerImpulseUp");            
         }
