@@ -1,5 +1,7 @@
 # Flying Flyer 🚀
 
+> Based on this [Tutorial](https://www.youtube.com/watch?v=sT5sBkkmuaQ&t=6077s)
+
 _I'm exploring the world of game development, so I decided to create a mini game in order to acquire knowledge. This is a mini-game about a ship that needs to dodge the moteorites generated randomly, if you hit one of them you will die._
 
 ## Installation 🔧
