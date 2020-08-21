@@ -107,9 +107,13 @@ public class PlayerController : MonoBehaviour {
         {
             UpdateState("PlayerCrash");
             game.GetComponent<GameController>().gameState = GameState.Ended;
-            enemyGenerator.SendMessage("CancelGenerator", true);
+            enemyGenerator.SendMessage("CancelGenerator", false);
         }
+    }
 
+    void GameReady()
+    {
+        game.GetComponent<GameController>().gameState = GameState.Ready;
     }
 
 }
