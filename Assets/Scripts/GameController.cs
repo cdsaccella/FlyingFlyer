@@ -7,6 +7,7 @@ public enum GameState { Idle, Playing, Ended }
 
 public class GameController : MonoBehaviour {
 
+    [Range(0, 0.2f)]
     public float parallaxSpeed = 0.02f;
     public RawImage background;
     public GameObject gameIdle;
