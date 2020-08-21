@@ -8,8 +8,11 @@ public enum GameState { Idle, Playing, Ended }
 public class GameController : MonoBehaviour {
 
     [Range(0, 0.2f)]
-    public float parallaxSpeed = 0.02f;
+    public float unitSpeed = 0.01f;
     public RawImage background;
+    public RawImage background2;
+    public RawImage background3;
+    public RawImage background4;
     public GameObject gameIdle;
 
     
@@ -42,7 +45,10 @@ public class GameController : MonoBehaviour {
 
     void Parallax()
     {
-        float finalSpeed = parallaxSpeed * Time.deltaTime;
-        background.uvRect = new Rect(background.uvRect.x + finalSpeed, 0f, 1f, 1f);
+        float finalUnitSpeed = unitSpeed * Time.deltaTime;
+        background.uvRect = new Rect(background.uvRect.x + finalUnitSpeed, 0f, 1f, 1f);
+        background2.uvRect = new Rect(background2.uvRect.x + (finalUnitSpeed * 2), 0f, 1f, 1f);
+        background3.uvRect = new Rect(background3.uvRect.x + (finalUnitSpeed * 3), 0f, 1f, 1f);
+        background4.uvRect = new Rect(background4.uvRect.x + (finalUnitSpeed * 4), 0f, 1f, 1f);
     }
 }
