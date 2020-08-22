@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyGeneratorController : MonoBehaviour {
+public class EnemyGeneratorController : MonoBehaviour, IFinalizable {
 
     public GameObject enemyPrefab;
 
@@ -94,5 +94,10 @@ public class EnemyGeneratorController : MonoBehaviour {
         }
 
         enemy.GetComponent<Rigidbody2D>().AddForce(Vector2.left * finalForce + variableVector, ForceMode2D.Impulse);
+    }
+
+    public void EndGame()
+    {
+        CancelGenerator(false);
     }
 }

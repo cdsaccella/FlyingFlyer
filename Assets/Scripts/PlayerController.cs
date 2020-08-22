@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour, IFinalizable {
 
     public GameObject game;
     public GameObject enemyGenerator;
     public AudioClip dieClip;
+    public float force = 1000f;
 
     public ParticleSystem fire;
 
@@ -45,7 +46,7 @@ public class PlayerController : MonoBehaviour {
 
     void UpdateState(string gameState = null)
     {
-        float forceValue = 1000f * Time.deltaTime;
+        float forceValue = force * Time.deltaTime;
 
         if (gameState != null) 
         {
@@ -108,16 +109,8 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Enemy")
-        {
-            UpdateState("PlayerCrash");
-            game.GetComponent<GameController>().gameState = GameState.Ended;
-            enemyGenerator.SendMessage("CancelGenerator", false);
-            game.GetComponent<AudioSource>().Stop();
-            audioPlayer.clip = dieClip;
-            audioPlayer.Play();
-
-            FireStop();
+        if (other.gameObject.tag == "Enemy") { 
+            game.GetComponent<GameController>().SendMessage("EndGame");    
         }
     }
 
@@ -136,4 +129,12 @@ public class PlayerController : MonoBehaviour {
         fire.Stop();
     }
 
+    public void EndGame()
+    {
+        UpdateState("PlayerCrash");
+        game.GetComponent<AudioSource>().Stop();
+        audioPlayer.clip = dieClip;
+        audioPlayer.Play();
+        FireStop();
+    }
 }
