@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
     public GameObject enemyGenerator;
     public AudioClip dieClip;
 
+    public ParticleSystem fire;
+
     private Animator animator;
     private AudioSource audioPlayer;
 
@@ -114,12 +116,24 @@ public class PlayerController : MonoBehaviour {
             game.GetComponent<AudioSource>().Stop();
             audioPlayer.clip = dieClip;
             audioPlayer.Play();
+
+            FireStop();
         }
     }
 
     void GameReady()
     {
         game.GetComponent<GameController>().gameState = GameState.Ready;
+    }
+
+    void FirePlay()
+    {
+        fire.Play();
+    }
+
+    void FireStop()
+    {
+        fire.Stop();
     }
 
 }

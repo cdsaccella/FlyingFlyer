@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
         {
             gameState = GameState.Playing;
             gameIdle.SetActive(false);
-            //  player.SendMessage("UpdateState", "PlayerFly");
+            player.SendMessage("FirePlay");
             enemyGenerator.SendMessage("StartGenerator");
             musicPlayer.Play();
         }
