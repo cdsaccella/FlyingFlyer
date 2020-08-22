@@ -1276,7 +1276,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1984495894862526, guid: 807989225458c4343a017a5238066870,
     type: 3}
+  initialForce: 3
+  forceTolerance: 0.25
+  forceInc: 1
   generatorTimer: 1.75
+  updaterTimer: 5
 --- !u!4 &1632372856
 Transform:
   m_ObjectHideFlags: 0

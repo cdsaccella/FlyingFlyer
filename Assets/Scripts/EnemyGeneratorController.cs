@@ -5,10 +5,23 @@ using UnityEngine;
 public class EnemyGeneratorController : MonoBehaviour {
 
     public GameObject enemyPrefab;
-    public float generatorTimer = 1.75f;
 
-	// Use this for initialization
-	void Start () {
+    public float initialForce = 1f;
+
+    public float forceTolerance = 0.1f;
+    public float forceInc = 0.1f;
+
+    public float timerDec = 0.1f;
+    public float timerThreshold = 0.25f;
+    public float initialGeneratorTimer = 1.5f;
+
+    public float updaterTimer = 5f;
+
+    private float force;
+    private float generatorTimer;
+
+    // Use this for initialization
+    void Start () {
         
 	}
 	
@@ -19,19 +32,32 @@ public class EnemyGeneratorController : MonoBehaviour {
 
     void CreateEnemy()
     {
-        float y = Random.Range(-4f, 4f);
-        Vector3 position = new Vector3(transform.position.x, y);
-        Instantiate(enemyPrefab, position, Quaternion.identity);
+        GameObject enemy = Instantiate(enemyPrefab, GetPosition(), Quaternion.identity);
+        AddForce(enemy);
+    }
+
+    void UpdateDifficulty()
+    {
+        force += forceInc;
+        if(generatorTimer - timerDec >= timerThreshold)
+        {
+            generatorTimer = generatorTimer - timerDec;
+        }
+        CancelInvoke("CreateEnemy");
+        InvokeRepeating("CreateEnemy", generatorTimer, generatorTimer);
     }
 
     public void StartGenerator()
     {
+        ResetInitialValues();
         InvokeRepeating("CreateEnemy", 0f, generatorTimer);
+        InvokeRepeating("UpdateDifficulty", updaterTimer, updaterTimer);
     }
 
     public void CancelGenerator(bool clean = false)
     {
         CancelInvoke("CreateEnemy");
+        CancelInvoke("UpdateDifficulty");      
         if (clean)
         {
             Object[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -40,6 +66,33 @@ public class EnemyGeneratorController : MonoBehaviour {
                 Destroy(enemy);
             }
         }
+    }
 
+    private void ResetInitialValues()
+    {
+        force = initialForce;
+        generatorTimer = initialGeneratorTimer;
+    }
+
+    private Vector3 GetPosition()
+    {
+        float y = Random.Range(-4f, 4f);
+        return new Vector3(transform.position.x, y);
+    }
+
+    private void AddForce(GameObject enemy)
+    {
+        float forceMin = force - forceTolerance * force;
+        float forceMax = force + forceTolerance * force;
+        float finalForce = Random.Range(forceMin, forceMax);
+
+        Vector2 variableVector = Vector2.zero;
+
+        if(Random.value > 0.5)
+        {
+            variableVector = Vector2.up * Random.Range(-1f, 1f);
+        }
+
+        enemy.GetComponent<Rigidbody2D>().AddForce(Vector2.left * finalForce + variableVector, ForceMode2D.Impulse);
     }
 }

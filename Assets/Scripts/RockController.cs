@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class RockController : MonoBehaviour {
 
-    public float velocity = 2f;
     private Rigidbody2D rb2d;
 
 	// Use this for initialization
 	void Start () {
-        rb2d = GetComponent<Rigidbody2D>();
-        rb2d.velocity = Vector2.left * velocity;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update () {		
 	}
 
     void OnTriggerEnter2D(Collider2D other)
