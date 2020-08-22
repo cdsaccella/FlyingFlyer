@@ -17,16 +17,17 @@ public class GameController : MonoBehaviour
     public RawImage background4;
     public GameObject gameIdle;
 
-
     public GameState gameState = GameState.Idle;
 
     public GameObject player;
     public GameObject enemyGenerator;
 
+    private AudioSource musicPlayer;
+
     // Use this for initialization
     void Start()
     {
-
+        musicPlayer = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -40,6 +41,7 @@ public class GameController : MonoBehaviour
             gameIdle.SetActive(false);
             //  player.SendMessage("UpdateState", "PlayerFly");
             enemyGenerator.SendMessage("StartGenerator");
+            musicPlayer.Play();
         }
         else if (gameState == GameState.Playing)
         {

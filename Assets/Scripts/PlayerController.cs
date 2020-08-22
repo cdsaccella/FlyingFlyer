@@ -6,12 +6,15 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject game;
     public GameObject enemyGenerator;
+    public AudioClip dieClip;
 
     private Animator animator;
+    private AudioSource audioPlayer;
 
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
+        audioPlayer = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -108,6 +111,9 @@ public class PlayerController : MonoBehaviour {
             UpdateState("PlayerCrash");
             game.GetComponent<GameController>().gameState = GameState.Ended;
             enemyGenerator.SendMessage("CancelGenerator", false);
+            game.GetComponent<AudioSource>().Stop();
+            audioPlayer.clip = dieClip;
+            audioPlayer.Play();
         }
     }
 
