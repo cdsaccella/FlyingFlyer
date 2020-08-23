@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 424636190}
   - component: {fileID: 424636194}
   - component: {fileID: 424636195}
+  - component: {fileID: 424636196}
   m_Layer: 5
   m_Name: GameCanvas
   m_TagString: Untagged
@@ -455,6 +456,7 @@ MonoBehaviour:
   gameIdle: {fileID: 1401894884}
   gameScore: {fileID: 1875779903}
   gamePoints: {fileID: 1698846355}
+  gameMaxScore: {fileID: 0}
   gameState: 0
   player: {fileID: 955013805}
   enemyGenerator: {fileID: 1632372854}
@@ -555,6 +557,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &424636196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424636189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbb99f1c7672b59429022e500c6f910a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &477278923
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,7 +789,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &908623138
 RectTransform:
   m_ObjectHideFlags: 0
@@ -846,7 +860,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press UP/DOWN to play
+  m_Text: 'BEST: '
 --- !u!222 &908623141
 CanvasRenderer:
   m_ObjectHideFlags: 0

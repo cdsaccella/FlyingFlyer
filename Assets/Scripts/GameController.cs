@@ -19,7 +19,8 @@ public class GameController : MonoBehaviour, IFinalizable
     public RawImage background4;
     public GameObject gameIdle;
     public GameObject gameScore;
-    public Text gamePoints;
+    public Text txtPoints;
+    public Text txtRecord;
 
     public GameState gameState = GameState.Idle;   
 
@@ -30,13 +31,12 @@ public class GameController : MonoBehaviour, IFinalizable
 
     private AudioSource musicPlayer;
 
-    private int points = 0;
-
     // Use this for initialization
     void Start()
     {
         musicPlayer = GetComponent<AudioSource>();
         finalizables = new GameObject[] { player, enemyGenerator };
+        SetMaxScoreText(ScoreManager.scoreManager.GetMaxScore());
     }
 
     // Update is called once per frame
@@ -86,16 +86,26 @@ public class GameController : MonoBehaviour, IFinalizable
     {
         gameState = GameState.Ended;
         CancelInvoke("IncreasePoints");
-        points = 0;
-        foreach (var finalizable in finalizables)
+        ScoreManager.scoreManager.ResetScore();
+        foreach (GameObject finalizable in finalizables)
         {
             finalizable.SendMessage("EndGame");
         }
     }
 
+    public void SetMaxScoreText(int score)
+    {
+        txtRecord.text = "BEST: " + score;
+    }
+
     public void IncreasePoints()
     {
-        points++;
-        gamePoints.text = points.ToString();
+        int newScore = ScoreManager.scoreManager.IncreaseScore();
+        txtPoints.text = newScore.ToString();
+        if(newScore > ScoreManager.scoreManager.GetMaxScore())
+        {
+            ScoreManager.scoreManager.SaveScore();
+            SetMaxScoreText(newScore);
+        }
     }
 }
