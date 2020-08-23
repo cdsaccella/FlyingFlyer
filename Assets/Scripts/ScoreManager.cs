@@ -8,10 +8,12 @@ public class ScoreManager : MonoBehaviour
 
     private int score = 0;
 
-    void Start()
+    private void Awake()
     {
         scoreManager = this;
     }
+
+    void Start() { }
 
     public int IncreaseScore(int score = 1)
     {

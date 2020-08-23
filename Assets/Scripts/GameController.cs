@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour, IFinalizable
     public Text txtPoints;
     public Text txtRecord;
 
-    public GameState gameState = GameState.Idle;   
+    public GameState gameState = GameState.Idle;
 
     public GameObject player;
     public GameObject enemyGenerator;
@@ -84,12 +84,15 @@ public class GameController : MonoBehaviour, IFinalizable
 
     public void EndGame()
     {
-        gameState = GameState.Ended;
-        CancelInvoke("IncreasePoints");
-        ScoreManager.scoreManager.ResetScore();
-        foreach (GameObject finalizable in finalizables)
+        if (gameState != GameState.Ended)
         {
-            finalizable.SendMessage("EndGame");
+            gameState = GameState.Ended;
+            CancelInvoke("IncreasePoints");
+            ScoreManager.scoreManager.ResetScore();
+            foreach (GameObject finalizable in finalizables)
+            {
+                finalizable.SendMessage("EndGame");
+            }
         }
     }
 
@@ -102,7 +105,7 @@ public class GameController : MonoBehaviour, IFinalizable
     {
         int newScore = ScoreManager.scoreManager.IncreaseScore();
         txtPoints.text = newScore.ToString();
-        if(newScore > ScoreManager.scoreManager.GetMaxScore())
+        if (newScore > ScoreManager.scoreManager.GetMaxScore())
         {
             ScoreManager.scoreManager.SaveScore();
             SetMaxScoreText(newScore);
