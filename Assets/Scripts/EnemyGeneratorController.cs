@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyGeneratorController : MonoBehaviour, IFinalizable {
 
-    public GameObject enemyPrefab;
+    public GameObject [] enemiesPrefab;
 
     public float initialForce = 1f;
 
@@ -32,7 +32,8 @@ public class EnemyGeneratorController : MonoBehaviour, IFinalizable {
 
     void CreateEnemy()
     {
-        GameObject enemy = Instantiate(enemyPrefab, GetPosition(), Quaternion.identity);
+        int randomEnemyIndex = Random.Range(0, enemiesPrefab.Length);
+        GameObject enemy = Instantiate(enemiesPrefab[randomEnemyIndex], GetPosition(), Quaternion.identity);
         AddForce(enemy);
     }
 
