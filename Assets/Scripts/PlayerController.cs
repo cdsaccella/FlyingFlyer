@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IFinalizable {
     public float force = 1000f;
 
     public ParticleSystem fire;
+    public ParticleSystem explosion;
 
     private Animator animator;
     private AudioSource audioPlayer;
@@ -131,6 +132,7 @@ public class PlayerController : MonoBehaviour, IFinalizable {
 
     public void EndGame()
     {
+        explosion.Play();
         UpdateState("PlayerCrash");
         game.GetComponent<AudioSource>().Stop();
         audioPlayer.clip = dieClip;

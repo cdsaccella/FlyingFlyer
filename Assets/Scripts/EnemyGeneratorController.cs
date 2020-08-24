@@ -26,7 +26,7 @@ public class EnemyGeneratorController : MonoBehaviour, IFinalizable {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () { 
 		
 	}
 
